@@ -637,9 +637,7 @@ void Mesh::umbrellaSmooth(bool cotangentWeights) {
 			}
 			// Sum up the position of each neighbor according to the edge list.
 			Eigen::Vector3f sumVec(0, 0, 0);
-			for(auto niter = e.begin(); niter != e.end(); niter++){
-				sumVec += (*niter)->end()->position();
-			}
+			for(auto niter = e.begin(); niter != e.end(); niter++) sumVec += (*niter)->end()->position();
 			// Calculate the laplician smoothing and update the new postion.
 			Eigen::Vector3f laplacian = sumVec / e.size() - pos;
 			(*iter)->setPosition(pos + lambda * laplacian);
@@ -720,9 +718,7 @@ void Mesh::implicitUmbrellaSmooth(bool cotangentWeights) {
 		}
 		typedef Eigen::Triplet<double> T;
 		std::vector< T > tripletList;
-		for(int i=0; i< 3 * mVertexList.size(); i++) {
-			tripletList.push_back(T(i,i,1 + lambda));
-		}
+		for(int i=0; i< 3 * mVertexList.size(); i++) tripletList.push_back(T(i,i,1 + lambda));
 		for(auto iter = mVertexList.begin(); iter != mVertexList.end(); iter++){
 			const Eigen::Vector3f& pos = (*iter)->position();
 			std::vector<HEdge*> e; // Edge list for the vertex
@@ -757,9 +753,7 @@ void Mesh::implicitUmbrellaSmooth(bool cotangentWeights) {
 		Eigen::SparseMatrix<float> A(3 * mVertexList.size(),3 * mVertexList.size());
 		A.setFromTriplets(tripletList.begin(), tripletList.end());
 		Eigen::VectorXf x(3 * mVertexList.size());
-		for (int i=0; i<3*mVertexList.size(); i++) {
-			x[i] = 0.0;
-		}
+		for (int i=0; i<3*mVertexList.size(); i++) x[i] = 0.0;
 		fnConjugateGradient(A, b, 15, 1e-7, x);
 		// Calculate the laplician smoothing and update the new postion.
 		for (auto iter=mVertexList.begin(); iter!=mVertexList.end(); iter++) {
@@ -788,9 +782,7 @@ void Mesh::implicitUmbrellaSmooth(bool cotangentWeights) {
 		}
 		typedef Eigen::Triplet<double> T;
 		std::vector< T > tripletList;
-		for(int i=0; i< 3 * mVertexList.size(); i++) {
-			tripletList.push_back(T(i,i,1 + lambda));
-		}
+		for(int i=0; i< 3 * mVertexList.size(); i++) tripletList.push_back(T(i,i,1 + lambda));
 		for(auto iter = mVertexList.begin(); iter != mVertexList.end(); iter++){
 			const Eigen::Vector3f& pos = (*iter)->position();
 			std::vector<HEdge*> e; // Edge list for the vertex
@@ -809,9 +801,7 @@ void Mesh::implicitUmbrellaSmooth(bool cotangentWeights) {
 		Eigen::SparseMatrix<float> A(3 * mVertexList.size(),3 * mVertexList.size());
 		A.setFromTriplets(tripletList.begin(), tripletList.end());
 		Eigen::VectorXf x(3 * mVertexList.size());
-		for (int i=0; i<3*mVertexList.size(); i++) {
-			x[i] = 0.0;
-		}
+		for (int i=0; i<3*mVertexList.size(); i++) x[i] = 0.0;
 		fnConjugateGradient(A, b, 15, 1e-7, x);
 		// Calculate the laplician smoothing and update the new postion.
 		for (auto iter=mVertexList.begin(); iter!=mVertexList.end(); iter++) {
