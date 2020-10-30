@@ -88,7 +88,16 @@ bool HEdge::setValid(bool b) {
 	mValid = b;
 	return mValid;
 }
-
+Vertex* HEdge::edgeVertex() const {
+	Eigen::Vector3f new_vec(0,0,0);
+	new_vec += mStart->position();
+	new_vec += mNext->start()->position();
+	new_vec += mFace->halfEdge()->start()->position();
+	new_vec += mFace->halfEdge()->end()->position();
+	new_vec /= 4.0;
+	Vertex* v = new Vertex(new_vec);
+	return v;
+}
 OneRingHEdge::OneRingHEdge(const Vertex* v) {
 	if (v == nullptr) {
 		mStart = nullptr;
@@ -224,6 +233,20 @@ Face::Face() : mHEdge(nullptr), mValid(true) {
 
 HEdge* Face::halfEdge() const {
 	return mHEdge;
+}
+Vertex* Face::faceVertex() const {
+	int num = 0;
+	Eigen::Vector3f new_vec(0,0,0);
+	HEdge* p = mHEdge;
+	do
+	{
+		num++;
+		new_vec += p->end()->position();
+		p = p->next();
+	}while( p!=mHEdge);
+	new_vec /= num;
+	Vertex* v = new Vertex(new_vec);
+	return v;
 }
 
 HEdge* Face::setHalfEdge(HEdge* he) {

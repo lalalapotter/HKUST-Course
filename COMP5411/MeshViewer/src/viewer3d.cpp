@@ -441,7 +441,8 @@ Viewer3D::Viewer3D() : mWindow(nullptr),
                        mNScreen(nullptr),
                        mMesh(nullptr),
                        mViewerData(nullptr),
-                       mDeformer(nullptr) {
+                       mDeformer(nullptr),
+                       mSubDivsioner(nullptr) {
 	mWindowWidth = 1280;
 	mWindowHeight = 800;
 	mMouseCurrentX = 0;
@@ -454,6 +455,7 @@ Viewer3D::Viewer3D() : mWindow(nullptr),
 	mHandleState = HandleState::Add;
 	mSelectedHandle = 0;
 	mDeformer = new Deformer();
+	mSubDivsioner = new SubDivisioner();
 }
 
 Viewer3D::~Viewer3D() {
@@ -466,6 +468,10 @@ Viewer3D::~Viewer3D() {
 		delete mDeformer;
 	}
 	mDeformer = nullptr;
+	if (mSubDivsioner){
+		delete mSubDivsioner;
+	}
+	mSubDivsioner = nullptr;
 }
 
 int Viewer3D::launch() {
@@ -685,7 +691,8 @@ int Viewer3D::launchInit() {
                 {
 	                buildDeformMat();
                 });
-
+	mNGui->addGroup("Subdivision");
+	mNGui->addButton("Update", [&]() { subdivisionSurfaces();});
 	mNScreen->setVisible(true);
 	mNScreen->performLayout();
 
@@ -772,6 +779,15 @@ void Viewer3D::smoothMesh() {
 		mMesh->umbrellaSmooth(mUseCotWeights);
 		break;
 	}
+}
+
+void Viewer3D::subdivisionSurfaces(){
+	//TODO subdivision surfaces implemtation
+	if (mMesh == nullptr) {
+		return;
+	}
+	mSubDivsioner->CatmullClark(mMesh);
+	return;
 }
 
 void Viewer3D::buildDeformMat() {

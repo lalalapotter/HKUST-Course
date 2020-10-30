@@ -4,6 +4,7 @@
 #include "glcamera.h"
 #include "mesh.h"
 #include "deformer.h"
+#include "subdivisioner.h"
 
 // Data manager for the viewer
 // You DO NOT need to understand or use it.
@@ -115,7 +116,8 @@ private:
 	int selectHandle(float mouseX, float mouseY);
 	void moveHandle(float lastMouseX, float lastMouseY,
 	                float currentMouseX, float currentMouseY);
-
+	// Subdivision
+	void subdivisionSurfaces();
 	// UI related
 	GLFWwindow* mWindow;
 	nanogui::FormHelper* mNGui;
@@ -139,6 +141,7 @@ private:
 	HandleState mHandleState;
 	int mSelectedHandle;
 	Deformer* mDeformer;
+	Subdivisioner* mSubDivisioner;
 };
 
 #endif // VIEWER_3D_H

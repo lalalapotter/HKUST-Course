@@ -42,6 +42,8 @@ public:
 	bool isValid() const;
 	bool setValid(bool b);
 
+	Vertex* edgeVertex() const;
+
 private:
 	// Twin/previous/next half edges
 	HEdge* mTwin;
@@ -160,6 +162,8 @@ public:
 
 	bool isValid() const;
 	bool setValid(bool b);
+
+	Vertex* faceVertex() const;
 
 private:
 	// Adjacent half-edge

@@ -161,8 +161,8 @@ CMakeFiles/COMP5411.dir/clean:
 # Target rules for target CMakeFiles/nanogui.dir
 
 # All Build rule for target.
-CMakeFiles/nanogui.dir/all: ext_build/glfw/src/CMakeFiles/glfw_objects.dir/all
 CMakeFiles/nanogui.dir/all: CMakeFiles/nanogui-obj.dir/all
+CMakeFiles/nanogui.dir/all: ext_build/glfw/src/CMakeFiles/glfw_objects.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/nanogui.dir/build.make CMakeFiles/nanogui.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/nanogui.dir/build.make CMakeFiles/nanogui.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/zhangcengguang/Documents/GitHub/HKUST-Course/COMP5411/MeshViewer/build/CMakeFiles --progress-num=21 "Built target nanogui"
